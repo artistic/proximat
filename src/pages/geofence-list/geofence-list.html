@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-navbar color="prox">
+
+    <ion-title>PROXiMAT<small>&reg;</small> </ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="new()" item-right icon-left>
+        <i class="fa fa-plus" aria-hidden="true"></i>
+         Create New Hazard
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="geofence-list-page">
+
+<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+<ion-spinner name = "circles" *ngIf="locations === undefined"></ion-spinner>
+<ion-list  *ngIf="!isLoading && geofences.length > 0" color="dark">
+
+
+</ion-list>
+
+<div class="row">
+      <div class="col-xs-12">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <ul class="products-list product-list-in-box">
+
+                <li class="item" *ngFor="let location of locations | async">
+                  <div class="row">
+
+                    <div class="col-xs-2">
+                      <img class="img-responsive" src="{{location.notification.picture }}" width="50px" height="50px"/>
+                    </div>
+
+                    <div class="col-xs-8" (click)="geofenceItemTapped(location)">
+                      <strong>{{location.notification.text}}</strong>
+                      <span class="text-danger pull-right"><small><i><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Alerts {{location.radius}} m</i></small></span>
+                      <small>
+                        <span class="product-description">
+                          <i class="fa fa-calendar" aria-hidden="true"></i> Start : <span class="text-warning">{{location.notification.start}}</span> |
+                          <i class="fa fa-calendar" aria-hidden="true"></i> End : <span class="text-warning">{{location.notification.end}}</span>
+                          <!-- Show If Active -->
+
+                        </span>
+                      </small>
+                    </div>
+
+                    <div class="col-xs-2">
+                      <span class="pull-right">
+                        <img  class="img-responsive" src="{{location.notification.data }}" width="50px" height="50px"/>
+                      </span>
+                    </div>
+
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-center">
+              <a href="javascript:void(0)" class="uppercase"><i class="fa fa-comments" aria-hidden="true"></i> Contact Site Admin</a>
+            </div>
+            <!-- /.box-footer -->
+    </div>
+</div>
+
+
+
+
+
+
+  <ion-card *ngIf="!isLoading && geofences.length === 0">
+    <ion-card-header>
+      There are no geofences yet.
+    </ion-card-header>
+  </ion-card>
+  <ion-card *ngIf="isLoading">
+    <ion-card-header>
+      Loading geofences...
+    </ion-card-header>
+  </ion-card>
+</ion-content>
+
+<ion-fab bottom right  >
+  <button ion-fab (click)="new()" class="add-geofence-button" color="prox">
+    <ion-icon name="md-add"></ion-icon>
+  </button>
+</ion-fab>

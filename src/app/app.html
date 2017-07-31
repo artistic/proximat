@@ -1,0 +1,45 @@
+<ion-menu [content]="content" side="right">
+
+
+  <ion-content padding>
+  <br>
+    <img class="profile-user-img img-responsive img-circle" src="assets/images/logo.png" alt="User profile picture">
+
+    <div class="login-logo">
+      <h3><b>PROXi</b>MAT <small>&reg;</small></h3>
+      <h4>Hazard Monitoring, Alerting, Trending</h4>
+    </div>
+
+    <ul class="list-group list-group-unbordered">
+      <li class="list-group-item">
+        <b>FAQ</b>
+      </li>
+      <li class="list-group-item">
+        <b>Terms And Conditions</b>
+      </li>
+      <li class="list-group-item">
+        <b>Rate App</b>
+      </li>
+    </ul>
+
+    <h4>Contact Us</h4>
+    <small>
+    <i class="fa fa-home" aria-hidden="true"></i> 3 Carissa Street Ottery Cape Town
+    South Africa<br>
+    <i class="fa fa-envelope" aria-hidden="true"></i> apps@svensonlabs.com<br>
+    <i class="fa fa-globe" aria-hidden="true"></i> http://www.svensonlabs.com
+    </small>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-xs-12">
+        <a href="http://www.svensonlabs.com/proximus/login.php" target="_blank">
+          <button type="button" class="btn btn-warning btn-block"><i class="fa fa-desktop" aria-hidden="true"></i> Open In Website</button>
+        </a>
+      </div>
+    </div>
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav id="nav" #content [root]="rootPage"></ion-nav>
