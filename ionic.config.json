@@ -1,5 +1,8 @@
 {
-  "name": "Proximat",
+  "name": "Excellent Eco Carwash",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

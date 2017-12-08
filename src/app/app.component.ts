@@ -4,11 +4,20 @@ import * as Leaflet from "leaflet";
 import { LoggingModePage } from '../pages/logging-mode/logging-mode';
 import { AuthPage } from '../pages/auth/auth';
 import { AllHazardsPage } from '../pages/all-hazards/all-hazards';
+import { AvailablePages } from '../pages/available/available';
+import { BookingsPage } from '../pages/bookings/bookings';
 import { GeofenceListPage } from "../pages/geofence-list/geofence-list";
-
+import { Register } from "../pages/register/register";
+import { Forgot } from "../pages/forgot/forgot";
+import { Settings } from "../pages/settings/settings";
+import { ProfilePage } from '../pages/profile/profile';
 import { GeofenceService } from "../services/geofence-service";
 import { GeofencePluginMock, TransitionType } from "../services/geofence-plugin-mock";
 import { FIXTURES } from "../models/geofence";
+
+import { AngularFire,FirebaseListObservable } from 'angularfire2';
+import { Auth } from '../providers/auth';
+import firebase from 'firebase';
 
 @Component({
   templateUrl: "app.html"
@@ -16,7 +25,9 @@ import { FIXTURES } from "../models/geofence";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = AllHazardsPage;
+  rootPage: any = BookingsPage;
+
+  displayUser:any;
 
   constructor(
     platform: Platform,
@@ -24,11 +35,14 @@ export class MyApp {
     private geofenceService: GeofenceService,
     private menuCtrl: MenuController,
     // private navCtrl: NavController
+    public ngFire: AngularFire,
+    public auth: Auth,
   ) {
 
 
-  
+
     platform.ready().then(() => {
+
       Leaflet.Icon.Default.imagePath = "assets/leaflet/images/";
 
       if (window.geofence === undefined) {
@@ -50,6 +64,12 @@ export class MyApp {
       })
     });
   }
+
+  ionViewWillEnter(){
+          this.displayUser = firebase.auth().currentUser.uid;
+        console.log (this.displayUser);
+
+        }
 
   addFixtures() {
     FIXTURES.forEach((fixture) => this.geofenceService.addOrUpdate(fixture));

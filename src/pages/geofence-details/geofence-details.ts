@@ -4,7 +4,10 @@ import * as Leaflet from "leaflet";
 import { GeofenceService } from "../../services/geofence-service";
 import { AngularFire,FirebaseListObservable } from 'angularfire2';
 import { Camera } from 'ionic-native';
+import { Auth } from '../../providers/auth';
 import firebase from 'firebase';
+
+
 
 const cameraOpts = {
       quality: 60,
@@ -31,22 +34,29 @@ const cameraOpts2 = {
   templateUrl: "geofence-details.html"
 })
 export class GeofenceDetailsPage {
+
+
   private geofence: Geofence;
   private _radius: number;
   private _latLng: any;
   private notificationText: string;
   private StartDate: string;
-  private EndDate: string;
+  private EndDate: string ;
   private notificationPicture: string;
   private transitionType: string;
   private circle: any;
   private marker: any;
   private map: any;
   locations: FirebaseListObservable<any>;
+  vehicles:  FirebaseListObservable<any>;
   public hazardTypes:any;
+  public VehicleMake:any;
+  public selectedVehicleMake:any;
   public selectedHazardType:any;
   public imageLocalURL:any;
   public uploadedImage:any = "";
+  private displayUser : string;
+
 
 
   constructor(
@@ -57,8 +67,16 @@ export class GeofenceDetailsPage {
     public ngFire: AngularFire
 
 
+
+
   ) {
+
+    this.displayUser = firebase.auth().currentUser.uid;
+    console.log (this.displayUser);
+
     this.locations = ngFire.database.list("/locations");
+    this.vehicles = ngFire.database.list("/vehicle");
+
     this.geofenceService = geofenceService;
     this.geofence = navParams.get("geofence");
     this.transitionType = this.geofence.transitionType.toString();
@@ -71,50 +89,22 @@ export class GeofenceDetailsPage {
 
   this.hazardTypes = [
 
-      {name:"Corrosive Hazard",imgURL:"corrosive.png",cat:"1"},
-      {name:"Confined Space",imgURL:"confined_space.png",cat:"1"},
-      {name:"Critical Zone",imgURL:"Critical_Zone.png",cat:"1"},
-      {name:"Electrical Hazard",imgURL:"Electrical_Hazard.png",cat:"2"},
-      {name:"Excavator At Work (HME)",imgURL:"excavator.png",cat:"3"},
-      {name:"Extreme Hail",imgURL:"Extreme_Hail.png",cat:"4"},
-      {name:"Extreme Heat ",imgURL:"Extreme_Heat.png",cat:"4"},
-      {name:"Extreme Noise",imgURL:"noise.png",cat:"1"},
-      {name:"Extreme Rain",imgURL:"Extreme_Rain.png",cat:"4"},
-      {name:"Extreme Wind",imgURL:"Extreme_Wind.png",cat:"4"},
-      {name:"Flammable Material",imgURL:"flammable.png",cat:"1"},
-      {name:"Flooding Of Roadway",imgURL:"Flooding_of_Roadway.png",cat:"1"},
-      {name:"Hazardous Gas",imgURL:"Hazardous_Gas.png",cat:"1"},
-      {name:"Hazardous Liquid",imgURL:"Hazardous_Liquid.png",cat:"1"},
-      {name:"Heavy Vehicle",imgURL:"haulage.png",cat:"3"},
-      {name:"Light Vehicle",imgURL:"lv.png",cat:"3"},
-      {name:"Low Temperature",imgURL:"low_temperature.png",cat:"1"},
-      {name:"Low Visibility",imgURL:"Low_Visibilty.png",cat:"1"},
-      {name:"Open Hazard",imgURL:"Open_Ground.png",cat:"1"},
-      {name:"Other Hazard",imgURL:"other.png",cat:"1"},
-      {name:"Person",imgURL:"Person.png",cat:"3"},
-      {name:"Public Unrest",imgURL:"Public_Unrest.png",cat:"1"},
-      {name:"Radiation",imgURL:"radiation.png",cat:"1"},
-      {name:"Roadway Flooded",imgURL:"Flooding_of_Roadway.png",cat:"1"},
-      {name:"Slippery Floor/Ground",imgURL:"slippery_ground.png",cat:"1"},
-      {name:"Slippery Roadway",imgURL:"slippery_roadway.png",cat:"1"},
-      {name:"Spillage",imgURL:"Spillage.png",cat:"1"},
-      {name:"Toxic Substance",imgURL:"Toxic_Substance.png",cat:"1"},
-      {name:"Uneven Ground",imgURL:"Uneven_Ground.png",cat:"1"},
-      {name:"Vehicle Breakdown",imgURL:"Vehicle_Breakdown.png",cat:"1"},
-      {name:"Wild Animal",imgURL:"Wild_Animal.png",cat:"1"},
-      {name:"Workers Above",imgURL:"Workers_Above.png",cat:"1"},
+      {name:"Wash N Go",imgURL:"washings.jpg",cat:"1"},
+      {name:"Vacuums",imgURL:"vacuums.jpg",cat:"1"},
+      {name:"Jumbo",imgURL:"jumbos.jpg",cat:"1"},
+      {name:"Tyres",imgURL:"wheels.jpg",cat:"1"}
+  ];
 
 
-    ]
 
 
   }
+
+
 
   get radius() {
     return this._radius;
   }
-
-
 
   set radius(value) {
     this._radius = value;
@@ -135,7 +125,7 @@ export class GeofenceDetailsPage {
     this.menu.enable(false);
     // workaround map is not correctly displayed
     // maybe this should be done in some other event
-    setTimeout(this.loadMap.bind(this), 100);
+    setTimeout(this.loadMap.bind(this), 10);
     console.log(this.geofence)
   }
 
@@ -211,6 +201,11 @@ uploadPic() {
 
 
 saveChanges() {
+    var now = new Date();
+    now.setDate(now.getDate());
+
+    console.log(now);
+
     const geofence = this.geofence;
 
     geofence.notification.text = this.notificationText;
@@ -222,8 +217,7 @@ saveChanges() {
     geofence.notification.picture = this.uploadedImage;
     geofence.notification.start = this.StartDate;
     geofence.notification.end = this.EndDate;
-
-
+    geofence.wash_details.user = this.displayUser;
 
 
     console.log(geofence);

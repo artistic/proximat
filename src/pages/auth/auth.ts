@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
+import firebase from 'firebase';
 import { NavController, NavParams } from 'ionic-angular';
 import { AuthProviders, AuthMethods, AngularFire } from 'angularfire2';
+import { Auth } from '../../providers/auth';
 import { LoggingModePage  } from '../logging-mode/logging-mode';
 import { AllHazardsPage } from '../all-hazards/all-hazards';
+import { BookingsPage } from '../bookings/bookings';
+import { Register } from "../register/register";
+import { Forgot } from "../forgot/forgot";
 
 /*
   Generated class for the Auth page.
@@ -20,8 +25,8 @@ export class AuthPage {
   password:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ngFire: AngularFire) {
-      
-  
+
+
   }
 
   ionViewDidLoad() {
@@ -53,11 +58,22 @@ export class AuthPage {
     .catch((err)=>{
       console.log('Whoopsy Daisy!!' + err)
     })
-  
+
+  }
+
+  //go to Register
+  goToRegister() {
+  this.navCtrl.push(Register);
+  }
+
+  //go to Forgot
+  goToForgot() {
+  this.navCtrl.push(Forgot);
   }
 
   // isLoggedIn() {
-    
+
   // }
+
 
 }

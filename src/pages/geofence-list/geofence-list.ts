@@ -4,9 +4,13 @@ import { GeofenceDetailsPage } from "../geofence-details/geofence-details";
 import { GeofenceService } from "../../services/geofence-service";
 import { LocationTracker } from '../../providers/location-tracker';
 import { Splashscreen } from "ionic-native";
+
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Auth } from '../../providers/auth';
+import firebase from 'firebase';
 
 @Component({
+  selector: 'geofence-list-page',
   templateUrl: "geofence-list.html"
 })
 export class GeofenceListPage {
@@ -14,6 +18,7 @@ export class GeofenceListPage {
   geofences: [Geofence];
   locations:FirebaseListObservable<any>;
   hazardTypes:any;
+  displayUser:any;
 
   constructor(
     private nav: NavController,
@@ -23,6 +28,10 @@ export class GeofenceListPage {
     public ngFire: AngularFire,
     public locationService: LocationTracker
   ) {
+
+    this.displayUser = firebase.auth().currentUser.uid;
+        console.log (this.displayUser);
+
     this.isLoading = true;
     this.platform.ready().then(() => {
       this.geofenceService.findAll()
@@ -84,6 +93,11 @@ export class GeofenceListPage {
     Splashscreen.hide();
   }
 
+  ionViewDidLoad() {
+        this.displayUser = firebase.auth().currentUser.uid;
+        console.log (this.displayUser);
+      }
+
 
   new(){
 
@@ -98,7 +112,6 @@ export class GeofenceListPage {
 
   }
 
-
   itemSelected(x) {
     console.log(x)
   }
@@ -112,7 +125,13 @@ export class GeofenceListPage {
     })
   }
 
+  EditMe () {
+    alert("Search Availaible in the Pro-Version Of Excellent Eco Carwash.");
+  }
 
+  Search() {
+    alert("Search Availaible in the Pro-Version Of Excellent Eco Carwash.");
+  }
 
 
 }

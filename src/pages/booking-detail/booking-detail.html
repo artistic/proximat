@@ -1,0 +1,74 @@
+<ion-header class="text-success">
+  <ion-navbar  color="white">
+
+    <ion-title><span class="text-success header_ndini">{{ bookingInfo.notification.text }} </span></ion-title>
+    <ion-buttons start>
+      <button ion-button>
+
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-book fa-stack-1x fa-inverse"></i>
+      </span>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="editTools">
+    <div class="col-xs-3">
+      <div class="thumbnail">
+        <img src="{{bookingInfo.notification.data }}" class="img-responsive" alt="wash type">
+      </div>
+    </div>
+    <div class="col-xs-9">
+        <div class="row">
+          <div class="col-xs-9">
+            <span class="date_text text-success">{{ bookingInfo.notification.start }}</span>
+          </div>
+          <div class="col-xs-3">
+            <span class="text-danger pull-right" *ngIf="(bookingInfo.wash_details.wash_status == 0)">
+                  <i class="fa fa-question-circle-o fa-3x" aria-hidden="true"></i>
+                </span>
+            <span class="text-danger pull-right" *ngIf="(bookingInfo.wash_details.wash_status == 1)">
+              <i class="fa fa-hourglass-start fa-3x" aria-hidden="true"></i>
+            </span>
+            <span class="text-success pull-right" *ngIf="(bookingInfo.wash_details.wash_status == 2)">
+              <i class="fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+    </div>
+  </div>
+  <hr>
+  <div class="wash_details">
+    <h3><span class="text-success">Wash Details</span></h3>
+
+    <div class="box-body box-profile">
+      <ul class="list-group list-group-unbordered">
+        <li class="list-group-item">
+          <b>Vehicle</b> <a class="pull-right">Vehicle Here</a>
+        </li>
+        <li class="list-group-item">
+          <b>Wash Type</b> <a class="pull-right"><img  class="img-responsive" src="{{bookingInfo.notification.data }}" width="25px" height="25px"/></a>
+        </li>
+        <li class="list-group-item">
+          <b>Wash Cost</b> <a class="pull-right"></a>
+        </li>
+
+        <li class="list-group-item">
+          <b>Eco Washer</b> <a class="pull-right">Name Here</a>
+        </li>
+      </ul>
+    </div>
+
+
+   Location
+
+
+  </div>
+</ion-content>

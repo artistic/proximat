@@ -1,0 +1,154 @@
+<ion-header class="text-success" no-border>
+    <ion-navbar color="white">
+        <div class="test_me">
+            Excellent Eco Carwash
+            {{res[0]}}
+        </div>
+
+        <ion-segment [(ngModel)]="cat">
+            <ion-segment-button value="#">
+                <i class="fa fa-globe fa-1x" (click)="goToMap()" aria-hidden="true"></i>
+            </ion-segment-button>
+            <ion-segment-button value="cars">
+                <span class="our_text">
+        <i class="fa fa-book" aria-hidden="true"></i>
+        Bookings
+      </span>
+            </ion-segment-button>
+            <ion-segment-button value="map">
+                <span class="our_text">
+      <i class="fa fa-car" aria-hidden="true"></i>
+      Vehicles
+    </span>
+            </ion-segment-button>
+        </ion-segment>
+
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <div [ngSwitch]="cat">
+        <ion-list *ngSwitchCase="'cars'">
+
+            <ul class="products-list product-list-in-box">
+
+                <li class="item" *ngFor="let location of locations | async" (click)="goBookingDetail(location)">
+                    <div class="row">
+
+                        <div class="col-xs-2">
+                            <img class="img-responsive img-circle" src="assets/img/jumbos.jpg" width="100%" />
+                        </div>
+
+                        <div class="col-xs-8">
+                            <span class="booking_title text-success">{{location.notification.text}}</span>
+                            <span class="text-danger pull-right"><small>
+
+                <span class="text-danger pull-right" *ngIf="(location.wash_details.wash_status == 0)">
+                  <i class="fa fa-question-circle-o " aria-hidden="true"></i>
+                </span>
+
+                            <span class="text-danger pull-right" *ngIf="(location.wash_details.wash_status == 1)">
+                  <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                </span>
+                            <span class="text-success pull-right" *ngIf="(location.wash_details.wash_status == 2)">
+                  <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                </span>
+
+                            </small>
+                            </span>
+                            <small>
+                <span class="product-description">
+                  <span class="text-info"> <i class="fa fa-calendar" aria-hidden="true"></i> {{location.notification.start}}</span>
+                </span>
+              </small>
+                        </div>
+
+                        <div class="col-xs-2">
+                            <span class="pull-right">
+                <img  class="img-responsive" src="{{location.notification.data }}" width="50px" height="50px"/>
+              </span>
+                        </div>
+
+                    </div>
+                </li>
+
+            </ul>
+
+        </ion-list>
+
+
+
+        <ion-list *ngSwitchCase="'map'">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="direct-chat direct-chat-info">
+                        <div class="direct-chat-msg right">
+                            <!-- /.direct-chat-info -->
+                            <img class="direct-chat-img" src="assets/img/avatar.png" alt="user">
+                            <!-- /.direct-chat-img -->
+                            <div class="direct-chat-text" (click)="addVehicle()">
+                                <small><i class="fa fa-plus" aria-hidden="true"></i> Press me to add a Vehicle</small>
+                            </div>
+                            <!-- /.direct-chat-text -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- I want to add an *ngif statement here that would filter database for vehicles by users only-->
+            <ul class="products-list product-list-in-box">
+
+                <li class="item" *ngFor="let vehicle of vehicles | async" (click)="goVehicleDetail(vehicle)">
+                    <div class="row">
+
+                        <div class="col-xs-2">
+                            <img class="img-responsive img-circle" [src]="vehicle.image" width="100%" />
+                        </div>
+
+                        <div class="col-xs-8">
+                            <span class="booking_title text-success">{{vehicle.user}}</span>
+                            <span class="text-danger pull-right"><small>
+              </small></span>
+                            <small>
+                <span class="product-description">
+                  <span class="text-info"> <i class="fa fa-calendar" aria-hidden="true"></i> {{vehicle.make}}</span>
+                </span>
+              </small>
+                        </div>
+
+                        <div class="col-xs-2">
+                            <span class="pull-right">
+                <span *ngIf="(vehicle.type == type)">
+                  <img  class="img-responsive" src="assets/img/default_car.jpg"/>
+                </span>
+
+                            </span>
+                        </div>
+
+                    </div>
+                </li>
+
+            </ul>
+        </ion-list>
+    </div>
+
+
+    <!-- Where are you trying to place the uid? -->
+
+</ion-content>
+
+<ion-fab left bottom>
+    <button ion-fab color="prox"><ion-icon ios="ios-menu" md="md-menu"></ion-icon></button>
+    <ion-fab-list side="top">
+        <button ion-fab color="prox" (click)="logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+        <button ion-fab color="prox" (click)="goToServices()"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <button ion-fab color="prox" (click)="goToFaq()"><i class="fa fa-question-circle-o" aria-hidden="true"></i></button>
+        <button ion-fab color="prox" (click)="goToProfile()"><i class="fa fa-user" aria-hidden="true"></i></button>
+    </ion-fab-list>
+</ion-fab>
+
+<ion-fab right bottom>
+    <button ion-fab color="prox" (click)="goToHazards()"><ion-icon ios="ios-add" md="md-add"></ion-icon></button>
+</ion-fab>

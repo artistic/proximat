@@ -21,9 +21,16 @@ export class GeofenceService {
       longitude: 50,
       radius: 100,
       transitionType: window.TransitionType.ENTER,
+      wash_details: {
+        user: "",
+        vehicle: "",
+        wash_cost: "",
+        washer: "",
+        wash_status:""
+      },
       notification: {
         id: this.getNextNotificationId(),
-        title: "PROXiMAT Hazard Notification",
+        title: "Excellent Eco Carwash Notification",
         text: "",
         picture:"",
         start:"",
@@ -31,7 +38,8 @@ export class GeofenceService {
         icon: "res://ic_menu_mylocation",
         openAppOnClick: true,
         data:""
-      },
+      }
+
     };
 
     return Object.assign(defaultGeofence, attributes);

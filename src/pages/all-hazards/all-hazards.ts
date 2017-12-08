@@ -5,11 +5,15 @@ import { GeofenceService } from "../../services/geofence-service";
 import { LocationTracker } from '../../providers/location-tracker';
 import { AngularFire,FirebaseListObservable } from 'angularfire2';
 import { AuthPage } from '../auth/auth';
-import { LoggingModePage } from '../logging-mode/logging-mode';
-import { DataAnalysisPage } from '../data-analysis/data-analysis';
-import { PresentationModePage } from '../presentation-mode/presentation-mode';
+import { BookingsPage } from '../bookings/bookings';
+import { FaqPage } from '../faq/faq';
+import { ProfilePage } from '../profile/profile';
+import { ServicesPage } from '../services/services';
+
 import { AllHazardsPopoverPage } from '../all-hazards-popover/all-hazards-popover';
 import { GeofenceListPage } from '../geofence-list/geofence-list';
+import { Settings } from '../settings/settings';
+import firebase from 'firebase';
 
 
 /*
@@ -44,7 +48,7 @@ export class AllHazardsPage {
   public excavatorIcon: any;
   private userLocations:any;
   public userCircle:any;
-
+   private displayUser : string;
 
 
   constructor(
@@ -59,7 +63,12 @@ export class AllHazardsPage {
     public alertCtrl: AlertController,
 
     public viewCtrl: ViewController
-   ) {
+   )
+
+   {
+
+      //this.displayUser = firebase.auth().currentUser.uid;
+      //console.log (this.displayUser);
 
       if(!this.isLoggedIn()){
         console.log('You are not logged in ');
@@ -164,7 +173,8 @@ this.mapIcon = this.userIcon;
     // workaround map is not correctly displayed
     // maybe this should be done in some other event
 
-
+    this.displayUser = firebase.auth().currentUser.uid;
+    console.log (this.displayUser);
 
 
  setTimeout(this.loadMap.bind(this), 100);
@@ -290,10 +300,22 @@ getMyPosition() {
     this.locationTracker.stopTracking();
   }
 
+  goToServices() {
+      this.navCtrl.push(ServicesPage);
+    }
 
-goToLogging() {
-  this.navCtrl.push(LoggingModePage);
+    goToFaq() {
+      this.navCtrl.push(FaqPage);
+    }
+
+    goToProfile() {
+    this.navCtrl.push(ProfilePage);
+    }
+
+goToSettings() {
+  this.navCtrl.push(Settings);
 }
+
 
 onLocationFound(e) {
   console.log(e);
@@ -301,16 +323,12 @@ onLocationFound(e) {
 
 }
 
-goToDataAnalysis() {
-  this.navCtrl.push(DataAnalysisPage);
-}
 
-goToPresentationMode() {
-  this.navCtrl.push(PresentationModePage);
-}
 
-goToHazards(){
-    this.navCtrl.push(GeofenceListPage);
+
+
+goToBookings(){
+    this.navCtrl.push(BookingsPage);
   }
 
 showPopover(event) {

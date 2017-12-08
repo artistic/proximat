@@ -1,33 +1,21 @@
+<ion-header class="text-success" transparent>
+    <ion-navbar color="white">
 
-<ion-header>
+        <ion-title><span class="text-success header_ndini">Locations </span></ion-title>
+        <ion-buttons start>
+            <button ion-button>
 
-  <ion-navbar  color="prox">
-    <ion-title>PROXiMAT <small>&#174;</small></ion-title>
+      </button>
+        </ion-buttons>
 
-     <ion-buttons end>
-          <div class="row">
-            <div class="col-xs-6">
-                <button ion-button icon-only (click)= "goToPresentationMode()" >
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-bar-chart fa-stack-1x fa-inverse"></i>
-                  </span>
-                </button>
-            </div>
-            <div class="col-xs-6">
-                <button ion-button icon-only (click)="showPopover($ev0ent)" >
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-warning fa-stack-1x fa-inverse"></i>
-                  </span>
-                </button>
-            </div>
-          </div>
+        <ion-buttons end>
+            <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-globe fa-stack-1x fa-inverse"></i>
+      </span>
+        </ion-buttons>
 
-      </ion-buttons>
-
-  </ion-navbar>
-
+    </ion-navbar>
 </ion-header>
 
 
@@ -36,24 +24,23 @@
 <ion-content>
 
 
-<ion-spinner name="circles" *ngIf="locations === undefined && locationTracker.lng === undefined"></ion-spinner>
-<div class="map-container" *ngIf ='locations !== undefined && locationTracker.lat !== undefined' >
-    <div id="map" >
+    <ion-spinner name="circles" *ngIf="locations === undefined && locationTracker.lng === undefined"></ion-spinner>
+    <div class="map-container" *ngIf='locations !== undefined && locationTracker.lat !== undefined'>
+        <div id="map">
+        </div>
     </div>
-  </div>
-  <ion-fab left bottom>
-    <button ion-fab (click)= "stop()" color="prox" ><i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></button>
-    <ion-fab-list side="top">
-      <button ion-fab color="prox" (click)="logOut()"  ><i class="fa fa-sign-out" aria-hidden="true"></i></button>
-      <button ion-fab  color="prox" (click)= "goToLogging()" ><i class="fa fa-cogs" aria-hidden="true"></i></button>
-    </ion-fab-list>
-  </ion-fab>
+    <ion-fab left bottom>
+        <button ion-fab (click)="stop()" color="prox"><ion-icon ios="ios-menu" md="md-menu"></ion-icon></button>
+        <ion-fab-list side="top">
+            <button ion-fab color="prox" (click)="logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+            <button ion-fab color="prox" (click)="goToServices()"><i class="fa fa-cog" aria-hidden="true"></i></button>
+            <button ion-fab color="prox" (click)="goToFaq()"><i class="fa fa-question-circle-o" aria-hidden="true"></i></button>
+            <button ion-fab color="prox" (click)="goToProfile()"><i class="fa fa-user" aria-hidden="true"></i></button>
+        </ion-fab-list>
+    </ion-fab>
 
-  <ion-fab right bottom>
-    <button ion-fab color="prox" (click)= "goToHazards()"><img src="assets/img/p.png" /></button>
-  </ion-fab>
+    <ion-fab right bottom>
+        <button ion-fab color="prox" (click)="goToBookings()"><ion-icon ios="ios-home" md="md-home"></ion-icon></button>
+    </ion-fab>
 
 </ion-content>
-
-
-

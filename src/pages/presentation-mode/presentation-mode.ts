@@ -48,7 +48,7 @@ export class PresentationModePage {
 
             type: 'bar',
             data: {
-                labels: ["Energy", "Mobile", "Static", "Weather"],
+                labels: ["Car", "House", "Other", "Personal"],
                 datasets: [{
                     label: 'Custom Graphs Available',
                     //change the guy to pick up data

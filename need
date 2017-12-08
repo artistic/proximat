@@ -1,0 +1,14 @@
+
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAYy3CcJv6i-9LlOMo-_ubxzFPz9-aTkM4",
+    authDomain: "proxinsurance.firebaseapp.com",
+    databaseURL: "https://proxinsurance.firebaseio.com",
+    projectId: "proxinsurance",
+    storageBucket: "proxinsurance.appspot.com",
+    messagingSenderId: "180242333170"
+  };
+  firebase.initializeApp(config);
+</script>

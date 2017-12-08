@@ -50,6 +50,7 @@ interface Geofence {
   radius: number;
   transitionType: number;
   notification?: Notification;
+  wash_details?: WashDetails;
 }
 
 interface Notification {
@@ -64,4 +65,11 @@ interface Notification {
   picture: Object;
   start: string;
   end: string;
+}
+interface WashDetails {
+  user: string;
+  vehicle: string;
+  wash_cost: string;
+  wash_status: string;
+  washer: string;
 }
