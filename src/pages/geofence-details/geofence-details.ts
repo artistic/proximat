@@ -49,6 +49,7 @@ export class GeofenceDetailsPage {
   private map: any;
   locations: FirebaseListObservable<any>;
   vehicles:  FirebaseListObservable<any>;
+  bookings:  FirebaseListObservable<any>;
   public hazardTypes:any;
   public VehicleMake:any;
   public selectedVehicleMake:any;
@@ -65,14 +66,12 @@ export class GeofenceDetailsPage {
     private geofenceService: GeofenceService,
     private menu: MenuController,
     public ngFire: AngularFire
-
-
-
-
   ) {
 
     this.displayUser = firebase.auth().currentUser.uid;
     console.log (this.displayUser);
+
+    this.bookings = ngFire.database.list(`/userData/${this.displayUser}/bookings`);
 
     this.locations = ngFire.database.list("/locations");
     this.vehicles = ngFire.database.list("/vehicle");
@@ -225,11 +224,17 @@ saveChanges() {
     this.geofenceService.addOrUpdate(geofence).then(() => {
       location.reload();
       this.nav.pop();
-
-
       // this.locations.push(geofence);
-
     });
+
+    //add data to bookings
+
+      this.bookings.push ({
+        booking_date: this.StartDate,
+        wash_text: this.this.notificationText,
+        wash_image: this."assets/img/"+this.hazardTypes[this.selectedHazardType].imgURL
+       });
   }
+
 
 }

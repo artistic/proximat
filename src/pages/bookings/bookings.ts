@@ -26,6 +26,7 @@ export class BookingsPage {
   locations:FirebaseListObservable<any>;
   location:FirebaseListObservable<any>;
   vehicles:FirebaseListObservable<any>;
+  bookings:FirebaseListObservable<any>;
   cat:string;
   user: any;
   userData:any;
@@ -54,8 +55,9 @@ export class BookingsPage {
             console.log('You are not logged in ');
             this.navCtrl.setRoot(AuthPage);
           }
-
+        this.displayUser = firebase.auth().currentUser.uid;  
         this.locations = ngFire.database.list("/locations");
+        this.bookings = ngFire.database.list(`/userData/${this.displayUser}/bookings`);
 
         // this.displayUser = firebase.auth().currentUser.uid;
         // can we contiue in a bit when I ge home? 
