@@ -56,27 +56,23 @@ export class BookingsPage {
           }
 
         this.locations = ngFire.database.list("/locations");
-        this.vehicles = ngFire.database.list("/vehicle");
 
-        this.displayUser = firebase.auth();
-        console.log (this.displayUser.uid);
+        // this.displayUser = firebase.auth().currentUser.uid;
+        // can we contiue in a bit when I ge home? 
+        // It seems currentuser is stored in memory...so if you load up the app on that page the value does not exist
+        // until you enter a page it does exist and then go back into the page.
 
-        this.res = this.userDataRef = ngFire.database.list("userData", {
-          query:{
-            orderByKey: '$key',
-            equalTo: this.displayUser.uid
-          }
-        }).subscribe((res)=>{
-          console.log(this.res)
+        // The solution would be to take the value from localstorage
+        ///okay thanks a million 
+
+       // this.vehicles = ngFire.database.list(`/userData/${this.displayUser}/vehicles`);
+        
+        //console.log (this.displayUser.uid);
+
+        ngFire.database.object("userData/MS5SBt4JlcNPCTAawi5hxYGSCfK2").subscribe((a) => {
+          this.res = a;
         })
 
-        console.log('From Log', this.res)
-        
-   
-        
-        // Can you try hitting Ctrl + Space after the this. above
-    // Not triggering suggestions for some reason can i download a plugin or something 
-    // The suggestion are built in
 
         this.hazardTypes = [
           {name:"Wash N Go",imgURL:"washings.jpg"},
@@ -145,34 +141,6 @@ export class BookingsPage {
     }
 
 
-    addVehicle():void {
-      let prompt = this.alertCtrl.create ({
-          title : 'Add A Vehicle',
-
-          inputs: [
-            { name : 'make', placeholder: "Make" },
-            { name : 'plates', placeholder: "Plates" },
-          ],
-          buttons: [
-           {
-              text: "Cancel",
-              //handler : data => { console.log("cancel clicked");}
-           },
-           {
-              text: "Create Vehicle",
-              handler: data => {
-                  this.vehicles.push ({
-                    make: data.make,
-                    plates: data.plates,
-                    image : "assets/img/vehicle.png",
-                    user : this.displayUser,
-                   })
-              }
-           }
-          ]
-      })
-      prompt.present();
-  }
 
 
 

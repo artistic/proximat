@@ -2,7 +2,6 @@
     <ion-navbar color="white">
         <div class="test_me">
             Excellent Eco Carwash
-            {{res[0]}}
         </div>
 
         <ion-segment [(ngModel)]="cat">
@@ -28,6 +27,10 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-item no-lines>
+        {{res}}
+
+    </ion-item>
 
     <div [ngSwitch]="cat">
         <ion-list *ngSwitchCase="'cars'">
@@ -38,7 +41,8 @@
                     <div class="row">
 
                         <div class="col-xs-2">
-                            <img class="img-responsive img-circle" src="assets/img/jumbos.jpg" width="100%" />
+                            <img class="img-responsive img-circle" *ngIf="(!location.notification.picture == 0)" src="{{location.notification.picture}}" width="100%" />
+                            <img class="img-responsive img-circle" *ngIf="(location.notification.picture == 0)" src="assets/img/app_logo.png" width="100%" />
                         </div>
 
                         <div class="col-xs-8">
@@ -88,7 +92,7 @@
                             <!-- /.direct-chat-info -->
                             <img class="direct-chat-img" src="assets/img/avatar.png" alt="user">
                             <!-- /.direct-chat-img -->
-                            <div class="direct-chat-text" (click)="addVehicle()">
+                            <div class="direct-chat-text">
                                 <small><i class="fa fa-plus" aria-hidden="true"></i> Press me to add a Vehicle</small>
                             </div>
                             <!-- /.direct-chat-text -->

@@ -1,108 +1,63 @@
-<ion-header class="text-success">
-  <ion-navbar  color="white">
+<ion-header class="text-success" no-border>
+    <ion-navbar color="white">
 
-    <ion-title><span class="text-success header_ndini">Your Bookings </span></ion-title>
-    <ion-buttons start>
-      <button ion-button>
+        <ion-title><span class="text-success header_ndini">Your Bookings </span></ion-title>
+        <ion-buttons start>
+            <button ion-button>
 
       </button>
-    </ion-buttons>
+        </ion-buttons>
 
-    <ion-buttons end>
-      <span class="fa-stack fa-lg" (click)="new()">
+        <ion-buttons end>
+            <span class="fa-stack fa-lg" (click)="new()">
         <i class="fa fa-square fa-stack-2x"></i>
         <i class="fa fa-book fa-stack-1x fa-inverse"></i>
       </span>
-    </ion-buttons>
+        </ion-buttons>
 
-  </ion-navbar>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="geofence-list-page" padding>
 
 
-  <div class="editTools">
-  <div class="col-xs-12">
-        <div class="direct-chat direct-chat-info">
+    <div class="editTools">
+        <div class="col-xs-12">
+            <div class="direct-chat direct-chat-info">
                 <div class="direct-chat-msg right">
-                  <!-- /.direct-chat-info -->
-                  <img class="direct-chat-img" src="assets/img/avatar.png" alt="user"><!-- /.direct-chat-img -->
-                  <div class="direct-chat-text">
-                    <small>You are about to add a booking to your account</small>
-                  </div>
-                  <!-- /.direct-chat-text -->
+                    <!-- /.direct-chat-info -->
+                    <img class="direct-chat-img" src="assets/img/avatar.png" alt="user">
+                    <!-- /.direct-chat-img -->
+                    <div class="direct-chat-text">
+                        <small>You are about to add a booking to your account</small>
+                    </div>
+                    <!-- /.direct-chat-text -->
                 </div>
+            </div>
         </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-xs-12">
-     <ul class="products-list product-list-in-box">
 
-      <li class="item" *ngFor="let location of locations | async" (click)="goBookingDetail(location)" >
-        <div class="row">
 
-          <div class="col-xs-2">
-            <img class="img-responsive img-circle" src="assets/img/jumbos.jpg" width="100%"/>
-          </div>
-
-          <div class="col-xs-8">
-            <span class="booking_title text-success">{{location.notification.text}}</span>
-            <span class="text-danger pull-right"><small>
-
-              <span class="text-danger pull-right" *ngIf="(location.wash_details.wash_status == 0)">
-                <i class="fa fa-question-circle-o " aria-hidden="true"></i>
-              </span>
-
-              <span class="text-danger pull-right" *ngIf="(location.wash_details.wash_status == 1)">
-                <i class="fa fa-hourglass-start" aria-hidden="true"></i>
-              </span>
-              <span class="text-success pull-right" *ngIf="(location.wash_details.wash_status == 2)">
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-              </span>
-
-            </small></span>
-            <small>
-              <span class="product-description">
-                <span class="text-info"> <i class="fa fa-calendar" aria-hidden="true"></i> {{location.notification.start}}</span>
-              </span>
-            </small>
-          </div>
-
-          <div class="col-xs-2">
-            <span class="pull-right">
-              <img  class="img-responsive" src="{{location.notification.data }}" width="50px" height="50px"/>
-            </span>
-          </div>
-
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-success btn-block" (click)="new()"> Add A New Booking</button>
         </div>
-      </li>
-
-    </ul>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <button type="button" class="btn btn-success btn-block" (click)="new()"> Add A New Booking</button>
-  </div>
-</div>
+    </div>
 
 
 
 
 
 
-<ion-card *ngIf="!isLoading && geofences.length === 0">
-  <ion-card-header>
-    There are no cameras yet.
-  </ion-card-header>
-</ion-card>
-<ion-card *ngIf="isLoading">
-  <ion-card-header>
-    Loading geofences...
-  </ion-card-header>
-</ion-card>
+    <ion-card *ngIf="!isLoading && geofences.length === 0">
+        <ion-card-header>
+            There are no cameras yet.
+        </ion-card-header>
+    </ion-card>
+    <ion-card *ngIf="isLoading">
+        <ion-card-header>
+            Loading geofences...
+        </ion-card-header>
+    </ion-card>
 </ion-content>
-

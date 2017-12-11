@@ -52,16 +52,13 @@ profilePicture: any = "https://www.gravatar.com/avatar/";
 
   	)
   	{
+      var myUserId = firebase.auth().currentUser.uid; // current user id
+      this.displayUser (myUserId);
+      console.log (myUserId);
       this.tel = ngFire.database.list("/userData");
 
   	}
 
-    ionViewWillEnter(){
-          var myUserId = firebase.auth().currentUser.uid; // current user id
-          this.displayUser (myUserId);
-          console.log (myUserId);
-
-        }
 
     displayUser (theUserId) {
 

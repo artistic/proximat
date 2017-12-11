@@ -323,7 +323,9 @@ onLocationFound(e) {
 
 }
 
-
+goCenterme(){
+  this.map.panTo(new L.LatLng(this.locationTracker.lat,this.locationTracker.lng));
+}
 
 
 
