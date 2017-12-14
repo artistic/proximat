@@ -10,75 +10,43 @@
             </ion-segment-button>
             <ion-segment-button value="cars">
                 <span class="our_text">
-        <i class="fa fa-book" aria-hidden="true"></i>
-        Bookings
-      </span>
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                    Find Us
+                </span>
             </ion-segment-button>
             <ion-segment-button value="map">
                 <span class="our_text">
-      <i class="fa fa-car" aria-hidden="true"></i>
-      Vehicles
-    </span>
-            </ion-segment-button>
-        </ion-segment>
+                  <i class="fa fa-users" aria-hidden="true"></i>
+                  Washers
+              </span>
+          </ion-segment-button>
+      </ion-segment>
 
 
-    </ion-navbar>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-item no-lines>
-        {{res}}
 
-    </ion-item>
 
     <div [ngSwitch]="cat">
         <ion-list *ngSwitchCase="'cars'">
+             <div class="row">
+                 <div class="col-xs-12">
+                     <img src="assets/img/map_location.jpg" class="img-responsive" (click)="goToMap()"/>
+                 </div>
+             </div>
 
-            <ul class="products-list product-list-in-box">
+             <h3 class="profile-username text-center">Tokai Garage</h3>
 
-                <li class="item" *ngFor="let location of locations | async" (click)="goBookingDetail(location)">
-                    <div class="row">
-
-                        <div class="col-xs-2">
-                            <img class="img-responsive img-circle" *ngIf="(!location.notification.picture == 0)" src="{{location.notification.picture}}" width="100%" />
-                            <img class="img-responsive img-circle" *ngIf="(location.notification.picture == 0)" src="assets/img/app_logo.png" width="100%" />
-                        </div>
-
-                        <div class="col-xs-8">
-                            <span class="booking_title text-success">{{location.notification.text}}</span>
-                            <span class="text-danger pull-right"><small>
-
-                <span class="text-danger pull-right" *ngIf="(location.wash_details.wash_status == 0)">
-                  <i class="fa fa-question-circle-o " aria-hidden="true"></i>
-                </span>
-
-                            <span class="text-danger pull-right" *ngIf="(location.wash_details.wash_status == 1)">
-                  <i class="fa fa-hourglass-start" aria-hidden="true"></i>
-                </span>
-                            <span class="text-success pull-right" *ngIf="(location.wash_details.wash_status == 2)">
-                  <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                </span>
-
-                            </small>
-                            </span>
-                            <small>
-                <span class="product-description">
-                  <span class="text-info"> <i class="fa fa-calendar" aria-hidden="true"></i> {{location.notification.start}}</span>
-                </span>
-              </small>
-                        </div>
-
-                        <div class="col-xs-2">
-                            <span class="pull-right">
-                <img  class="img-responsive" src="{{location.notification.data }}" width="50px" height="50px"/>
-              </span>
-                        </div>
-
-                    </div>
+             <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Mobile</b> <a class="pull-right">+27 78 862 1769</a>
                 </li>
-
-            </ul>
+                <li class="list-group-item">
+                  <b>Website</b> <a class="pull-right">excellentecocarwash.co.za</a>
+                </li>
+              </ul>
 
         </ion-list>
 
@@ -87,13 +55,13 @@
         <ion-list *ngSwitchCase="'map'">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="direct-chat direct-chat-info">
+                    <div class="direct-chat direct-chat-warning">
                         <div class="direct-chat-msg right">
                             <!-- /.direct-chat-info -->
                             <img class="direct-chat-img" src="assets/img/avatar.png" alt="user">
                             <!-- /.direct-chat-img -->
                             <div class="direct-chat-text">
-                                <small><i class="fa fa-plus" aria-hidden="true"></i> Press me to add a Vehicle</small>
+                                <small><i class="fa fa-plus" aria-hidden="true"></i> All our washers are registered in our main database and you can confirm the validity of a washer before they start.</small>
                             </div>
                             <!-- /.direct-chat-text -->
                         </div>
@@ -101,45 +69,30 @@
                 </div>
             </div>
 
-            <!-- I want to add an *ngif statement here that would filter database for vehicles by users only-->
-            <ul class="products-list product-list-in-box">
-
-                <li class="item" *ngFor="let vehicle of vehicles | async" (click)="goVehicleDetail(vehicle)">
-                    <div class="row">
-
-                        <div class="col-xs-2">
-                            <img class="img-responsive img-circle" [src]="vehicle.image" width="100%" />
-                        </div>
-
-                        <div class="col-xs-8">
-                            <span class="booking_title text-success">{{vehicle.user}}</span>
-                            <span class="text-danger pull-right"><small>
-              </small></span>
-                            <small>
-                <span class="product-description">
-                  <span class="text-info"> <i class="fa fa-calendar" aria-hidden="true"></i> {{vehicle.make}}</span>
-                </span>
-              </small>
-                        </div>
-
-                        <div class="col-xs-2">
-                            <span class="pull-right">
-                <span *ngIf="(vehicle.type == type)">
-                  <img  class="img-responsive" src="assets/img/default_car.jpg"/>
+            <ul class="users-list clearfix">
+                <li *ngFor="let washer of washer | async" (click)="goToWasherDetail(washer)">
+                  <img [src]="washer.washer_image" alt="User Image">
+                  <a class="users-list-name"><small>{{washer.washer_name}}</small></a>
+                  <span class="users-list-date" *ngIf="(washer.washer_available == 2)">
+                    <small>
+                    <i class="fa fa-circle text-danger" aria-hidden="true"></i>
+                </small>
                 </span>
 
-                            </span>
-                        </div>
-
-                    </div>
-                </li>
-
-            </ul>
-        </ion-list>
-    </div>
+                <span class="users-list-date" *ngIf="(washer.washer_available == 1)">
+                    <small>
+                    <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                </small>
+                </span>
+            </li>
+        </ul>
 
 
-    <!-- Where are you trying to place the uid? -->
+    </ion-list>
+</div>
+
+
+<!-- Where are you trying to place the uid? -->
 
 </ion-content>
 
@@ -154,5 +107,5 @@
 </ion-fab>
 
 <ion-fab right bottom>
-    <button ion-fab color="prox" (click)="goToHazards()"><ion-icon ios="ios-add" md="md-add"></ion-icon></button>
+    <button ion-fab color="prox" (click)="goToProfile()"><ion-icon ios="ios-add" md="md-add"></ion-icon></button>
 </ion-fab>

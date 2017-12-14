@@ -10,6 +10,7 @@ import { BookingDetailPage } from '../booking-detail/booking-detail';
 import { ServicesPage } from '../services/services';
 import { FaqPage } from '../faq/faq';
 import { ProfilePage } from '../profile/profile';
+import { WasherDetail } from '../washer-detail/washer-detail';
 import { VehiclePage } from '../vehicle/vehicle';
 import { AllHazardsPopoverPage } from '../all-hazards-popover/all-hazards-popover';
 import { GeofenceListPage } from '../geofence-list/geofence-list';
@@ -27,6 +28,7 @@ export class BookingsPage {
   location:FirebaseListObservable<any>;
   vehicles:FirebaseListObservable<any>;
   bookings:FirebaseListObservable<any>;
+  washer:FirebaseListObservable<any>;
   cat:string;
   user: any;
   userData:any;
@@ -50,25 +52,27 @@ export class BookingsPage {
         public viewCtrl: ViewController,
       ){
 
+        this.washer = ngFire.database.list("/washer");
+
 
         if(!this.isLoggedIn()){
             console.log('You are not logged in ');
             this.navCtrl.setRoot(AuthPage);
           }
-        this.displayUser = firebase.auth().currentUser.uid;  
+        //this.displayUser = firebase.auth().currentUser.uid;
         this.locations = ngFire.database.list("/locations");
         this.bookings = ngFire.database.list(`/userData/${this.displayUser}/bookings`);
 
         // this.displayUser = firebase.auth().currentUser.uid;
-        // can we contiue in a bit when I ge home? 
+        // can we contiue in a bit when I ge home?
         // It seems currentuser is stored in memory...so if you load up the app on that page the value does not exist
         // until you enter a page it does exist and then go back into the page.
 
         // The solution would be to take the value from localstorage
-        ///okay thanks a million 
+        ///okay thanks a million
 
        // this.vehicles = ngFire.database.list(`/userData/${this.displayUser}/vehicles`);
-        
+
         //console.log (this.displayUser.uid);
 
         ngFire.database.object("userData/MS5SBt4JlcNPCTAawi5hxYGSCfK2").subscribe((a) => {
@@ -135,6 +139,10 @@ export class BookingsPage {
     goVehicleDetail(vehicle) {
       this.navCtrl.push(VehiclePage, vehicle);
     }
+
+    goToWasherDetail(washer) {
+  this.navCtrl.push(WasherDetail, washer);
+}
 
 
     logOut(){

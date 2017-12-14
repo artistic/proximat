@@ -14,6 +14,7 @@ import firebase from 'firebase';
 })
 export class VehiclePage {
 
+  VehicleInfo: any;
 	vehicle:FirebaseListObservable<any>;
   locations:FirebaseListObservable<any>;
 	private displayUser : string;
@@ -31,15 +32,14 @@ export class VehiclePage {
         public viewCtrl: ViewController,
   	)
   {
+    this.VehicleInfo = navParams.data;
     this.locations = ngFire.database.list("/locations");
-    this.displayUser = firebase.auth().currentUser.uid;    
+    this.displayUser = firebase.auth().currentUser.uid;
     this.vehicles = ngFire.database.list(`/userData/${this.displayUser}/vehicles`);
     console.log (this.displayUser);
     this.vehicle = ngFire.database.list("/vehicle");
    }
-//wait sorry that error comes when you try add on the booking page
-// Whereis the vehicls page
-// we are currently on the vehicles page but that add vehicle is on both and the one on booking is not working let me remove it
+
 
   addVehicle():void {
       let prompt = this.alertCtrl.create ({
@@ -61,6 +61,7 @@ export class VehiclePage {
                     make: data.make,
                     plates: data.plates,
                     image : "assets/img/vehicle.png",
+                    color : "assets/img/color.jpg",
                     user : this.displayUser
                    })
               }

@@ -244,8 +244,6 @@ getMyPosition() {
             +res[i].radius+
             ' meters <br /><strong>Start Date : </strong>'
             +res[i].notification.start+
-            '<br /><strong>End Date : </strong>'
-            +res[i].notification.end+
             '</p>'
             )
                 .addTo(this.map);

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "declaration": false,
+    "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": [
@@ -18,10 +18,14 @@
     "typings/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
     "typings/main",
     "typings/main.d.ts"
   ],
+    "baseUrl": "types",
+    "typeRoots": [
+    "types",
+    "node_modules/@types"
+],
   "compileOnSave": false,
   "atom": {
     "rewriteTsconfig": false

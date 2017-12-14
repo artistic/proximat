@@ -1,1 +1,1 @@
-/// <reference path="globals/cordova-plugin-geofence/index.d.ts" />
+<reference path="globals/cordova-plugin-geofence/index.d.ts" />

@@ -24,6 +24,7 @@ import { AvailablePages } from '../pages/available/available';
 import { AvaDetailPage } from '../pages/ava-detail/ava-detail';
 import { BookingsPage } from '../pages/bookings/bookings';
 import { ServiceDetail } from '../pages/service-detail/service-detail';
+import { WasherDetail } from '../pages/washer-detail/washer-detail';
 import { BookingDetailPage } from '../pages/booking-detail/booking-detail';
 import { FaqDetailPage } from '../pages/faq-detail/faq-detail';
 import { VehicleDetailPage } from '../pages/vehicle-detail/vehicle-detail';
@@ -72,6 +73,7 @@ const components = [
   AvaDetailPage,
   BookingsPage,
   ServiceDetail,
+  WasherDetail,
   BookingDetailPage,
   FaqDetailPage,
   VehicleDetailPage,

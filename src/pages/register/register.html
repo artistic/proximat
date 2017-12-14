@@ -9,7 +9,7 @@
         </ion-buttons>
 
         <ion-buttons end>
-            <span class="fa-stack fa-lg" (click)="saveChanges()"> 
+            <span class="fa-stack fa-lg" (click)="saveChanges()">
         <i class="fa fa-square fa-stack-2x"></i>
         <i class="fa fa-edit fa-stack-1x fa-inverse"></i>
       </span>
@@ -41,10 +41,6 @@
                     </ion-item>
                     <ion-item class="error-message" *ngIf="!registerForm.controls.password.valid  && (passwordChanged || submitAttempt)">
                         <p>Your password needs more than 6 characters.</p>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label stacked>Full Name</ion-label>
-                        <ion-input #fullname formControlName="fullname" type="text" (change)="elementChanged(fullname)" placeholder="Your Full Name" [class.invalid]="!registerForm.controls.fullname.valid && (fullnameChanged || submitAttempt)"></ion-input>
                     </ion-item>
                     <ion-item class="error-message" *ngIf="!registerForm.controls.fullname.valid  && (fullnameChanged || submitAttempt)">
                         <p>Your full name can't empty.</p>

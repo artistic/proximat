@@ -36,6 +36,7 @@ const cameraOpts2 = {
 export class GeofenceDetailsPage {
 
 
+
   private geofence: Geofence;
   private _radius: number;
   private _latLng: any;
@@ -51,6 +52,7 @@ export class GeofenceDetailsPage {
   vehicles:  FirebaseListObservable<any>;
   bookings:  FirebaseListObservable<any>;
   public hazardTypes:any;
+  public vehicleTypes:any;
   public VehicleMake:any;
   public selectedVehicleMake:any;
   public selectedHazardType:any;
@@ -72,9 +74,10 @@ export class GeofenceDetailsPage {
     console.log (this.displayUser);
 
     this.bookings = ngFire.database.list(`/userData/${this.displayUser}/bookings`);
+    this.vehicles = ngFire.database.list(`/userData/${this.displayUser}/vehicles`);
 
     this.locations = ngFire.database.list("/locations");
-    this.vehicles = ngFire.database.list("/vehicle");
+
 
     this.geofenceService = geofenceService;
     this.geofence = navParams.get("geofence");
@@ -92,6 +95,11 @@ export class GeofenceDetailsPage {
       {name:"Vacuums",imgURL:"vacuums.jpg",cat:"1"},
       {name:"Jumbo",imgURL:"jumbos.jpg",cat:"1"},
       {name:"Tyres",imgURL:"wheels.jpg",cat:"1"}
+  ];
+
+  this.vehicleTypes = [
+
+      {vehicles:"Wash N Go",plates:"washings.jpg"}
   ];
 
 
@@ -231,8 +239,18 @@ saveChanges() {
 
       this.bookings.push ({
         booking_date: this.StartDate,
-        wash_text: this.this.notificationText,
-        wash_image: this."assets/img/"+this.hazardTypes[this.selectedHazardType].imgURL
+        wash_text: this.notificationText,
+        wash_image: "assets/img/"+this.hazardTypes[this.selectedHazardType].imgURL,
+        wash_type: this.hazardTypes[this.selectedHazardType].name,
+        wash_picture: this.uploadedImage,
+        wash_radius : this.radius,
+        wash_latitude : this.latLng.lat,
+        wash_longitude : this.latLng.lng,
+        wash_name : "",
+        wash_price : "",
+        wash_status : "",
+        wash_vehicle : "",
+        wash_washer : ""
        });
   }
 

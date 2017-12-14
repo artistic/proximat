@@ -1,53 +1,184 @@
 <ion-header class="text-success" no-border>
-    <ion-navbar color="white">
+  <ion-navbar color="white">
+    <div class="test_me">
+      <span class="text-warning"> {{userDisplayName}}</span>
+    </div>
 
-        <ion-title><span class="text-success header_ndini">{{userDisplayName}}</span></ion-title>
-        <ion-buttons start>
-            <button ion-button>
+    <ion-segment [(ngModel)]="cat">
+      <ion-segment-button value="profile">
+        <i class="fa fa-globe fa-1x" aria-hidden="true"></i> Profile
+      </ion-segment-button>
+      <ion-segment-button value="bookings">
+        <span class="our_text">
+          <i class="fa fa-book" aria-hidden="true"></i>
+          Bookings
+        </span>
+      </ion-segment-button>
+      <ion-segment-button value="vehicles">
+        <span class="our_text">
+          <i class="fa fa-car" aria-hidden="true"></i>
+          Vehicles
+        </span>
+      </ion-segment-button>
+    </ion-segment>
 
-      </button>
-        </ion-buttons>
 
-        <ion-buttons end>
-            <span class="fa-stack fa-lg">
-        <i class="fa fa-square fa-stack-2x"></i>
-        <i class="fa fa-user fa-stack-1x fa-inverse"></i>
-      </span>
-        </ion-buttons>
+  </ion-navbar>
+</ion-header>
 
-    </ion-navbar>
+<ion-header class="text-success" no-border>
+  <ion-navbar color="white">
+    <div class="test_me">
+      {{userDisplayName}}
+    </div>
+
+    <ion-segment [(ngModel)]="cat">
+      <ion-segment-button value="profile">
+        <i class="fa fa-user fa-1x" aria-hidden="true"></i>
+        Profile
+      </ion-segment-button>
+      <ion-segment-button value="bookings">
+        <span class="our_text">
+          <i class="fa fa-book" aria-hidden="true"></i>
+          Bookings
+        </span>
+      </ion-segment-button>
+      <ion-segment-button value="vehicles">
+        <span class="our_text">
+          <i class="fa fa-car" aria-hidden="true"></i>
+          Vehicles
+        </span>
+      </ion-segment-button>
+    </ion-segment>
+
+
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-    <div class="box-body box-profile">
-        <img class="profile-user-img img-responsive img-circle" [src]="userDisplayPhoto" alt="picture">
+  <div [ngSwitch]="cat">
 
+    <ion-list *ngSwitchCase="'profile'">
+      <div class="box-body box-profile">
+        <img class="profile-user-img img-responsive img-circle" *ngIf="(!userDisplayPhoto == 0)" src="{{userDisplayPhoto}}"   alt="picture">
         <h3 class="profile-username text-center">{{userDisplayEmail}}</h3>
 
         <p class="text-muted text-center">
-            {{userDisplayTel}}
-            <span class="pull-right" *ngIf="(userDisplayTel == +27)" (click)="updateTel()">
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </span>
+          {{userDisplayName}}
         </p>
 
         <ul class="list-group list-group-unbordered">
-            <li class="list-group-item">
-                <b>Number Of Washes</b> <a class="pull-right"><span class="text-success">
-                    <!-- Count The Number Of Washes -->
-                  </span></a>
-            </li>
-            <li class="list-group-item">
-                <b>Vehicles</b> <a class="pull-right"><span class="text-success">
-                    <!-- Get Count Of Vehicle -->
-                  </span></a>
-            </li>
+          <li class="list-group-item">
+            <b>Mobile</b> <a class="pull-right"><span class="text-success">
+              {{userDisplayTel}}
+            </span>
+          </a>
+          </li>
+          <li class="list-group-item">
+            <b>Points</b> <a class="pull-right"><span class="text-success">
+              <!-- Get Count Of Vehicle -->
+            </span></a>
+          </li>
         </ul>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="button" (click)="editName(userDisplayName,userDisplayTel)" class="btn btn-info btn-block"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile</button>
+        </div>
+      </div>
+    </ion-list>
 
-        <a href="#" class="btn btn-success btn-block" (click)="goToEdit()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
-        <br>
-        <a href="#" class="btn btn-danger btn-block" (click)="goToReset()"><i class="fa fa-window-restore" aria-hidden="true"></i> Reset Password</a>
-    </div>
+
+
+
+    <ion-list *ngSwitchCase="'bookings'">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="direct-chat direct-chat-info">
+            <div class="direct-chat-msg right">
+              <!-- /.direct-chat-info -->
+              <img class="direct-chat-img" src="assets/img/avatar.png" alt="user">
+              <!-- /.direct-chat-img -->
+              <div class="direct-chat-text" (click)="goToHazards()">
+                <small><i class="fa fa-plus" aria-hidden="true"></i> {{userDisplayEmail}} you can quickly add you booking. <strong>Press Here</strong></small>
+              </div>
+              <!-- /.direct-chat-text -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <ul class="products-list product-list-in-box">
+        <li class="item" *ngFor="let bookings of bookings | async" (click)="goBookingDetail(bookings)">
+          <div class="row">
+            <div class="col-xs-2">
+              <img class="img-responsive img-circle" *ngIf="(!bookings.wash_picture == 0)" src="{{bookings.wash_picture}}" width="100%" />
+              <img class="img-responsive img-circle" *ngIf="(bookings.wash_picture == 0)" src="assets/img/app_logo.png" width="100%" />
+            </div>
+
+            <div class="col-xs-8">
+              <span class="booking_title text-success">{{bookings.wash_text}}</span>
+              <span class="text-danger pull-right" *ngIf="(bookings.wash_status == 0)">
+                <i class="fa fa-question-circle-o " aria-hidden="true"></i>
+              </span>
+              <span class="text-danger pull-right" *ngIf="(bookings.wash_status == 1)">
+                <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+              </span>
+              <span class="text-success pull-right" *ngIf="(bookings.wash_status == 2)">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+              </span>
+            </div>
+
+            <div class="col-xs-2">
+              <span class="pull-right">
+                <img class="img-responsive img-circle" *ngIf="(!bookings.wash_image == 0)" src="{{bookings.wash_image}}" width="100%" />
+                <img class="img-responsive img-circle" *ngIf="(bookings.wash_image == 0)" src="assets/img/app_logo.png" width="100%" />
+              </span>
+
+            </div>
+          </div>
+        </li>
+      </ul>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'vehicles'">
+      <ul class="products-list product-list-in-box">
+        <li class="item" *ngFor="let vehicles of vehicles | async" (click)="goVehicleDetail(vehicles)">
+          <div class="product-img">
+            <img *ngIf="(!vehicles.image == 0)" src="{{vehicles.image}}" width="100%" />
+            <img *ngIf="(vehicles.image == 0)" src="assets/img/app_logo.png" width="100%" />
+          </div>
+          <div class="product-info">
+            <a href="javascript:void(0)" class="product-title">{{vehicles.make}}
+              <!-- Vehicle Type -->
+              <span class="label label-warning pull-right" *ngIf="(!vehicles.type == 0)" >
+                Not Defined
+              </span>
+
+              <span class="label label-warning pull-right" *ngIf="(!vehicles.type == 1)" >
+                SUV
+              </span>
+
+              <span class="label label-warning pull-right" *ngIf="(!vehicles.type == 2)" >
+                Passenger
+              </span>
+
+              <span class="label label-warning pull-right" *ngIf="(!vehicles.type == 3)" >
+                Minibus
+              </span>
+
+              <span class="label label-warning pull-right" *ngIf="(!vehicles.type == 4)" >
+                Fleet
+              </span>
+            </a>
+            <span class="product-description">
+              {{vehicles.plates}}
+            </span>
+          </div>
+        </li>
+      </ul>
+    </ion-list>
+  </div>
 
 </ion-content>
